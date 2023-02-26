@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies</title>
+    <style>table,
+    td {
+        border: 1px solid #333;
+        margin-top: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    thead,
+    tfoot {
+        background-color: #e8e5e5;
+        color: #ffffff;
+    }
+    </style>
+    <style>
+        table, th, td {
+            border: 1px solid #1e1818;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Id</th>
+        <th scope="col">Departments name</th>
+        <th scope="col">Doctors name</th>
+        <th scope="col">Patients name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="appointment : ${allAppointments}">
+        <td th:text="${appointment.id}"></td>
+        <td th:text="${appointment.department}"></td>
+        <td th:text="${appointment.doctor}"></td>
+        <td th:text="${appointment.patient}"></td>
+        <td th:text="${appointment.date}"></td>
+
+        <td><a th:href="@{/appointment/update/{id}/(id=${appointment.getId()})}">
+            <button style="height: 40px; width: 80px; background-color:#ffffff;">update</button>
+        </a>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/appointment/delete/{id}(id=${appointment.getId()})}">
+                <input type="submit" value="delete" style="height: 40px; width: 80px; background-color:#ffffff;"/>
+            </form>
+        </td>
+        <td><a th:href="@{/appointment/add/save}">New</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add appointment"
+       onclick="window.location.href = '/appointment/add'">
+</body>
+</html>
